@@ -42,14 +42,17 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 - SQL is the language used to query a relational database. while a relational database uses primary and foreign keys to normalize data.
 
-
 - [ ] Why do tables need a `primary key`?
 
 - to have a unique identifier
 
 - [ ] What is the name given to a table column that references the primary key on another table.
 
+- foreign key
+
 - [ ] What do we need in order to have a _many to many_ relationship between two tables.
+
+- a intermediary table that joins the two tables through their primary keys.
 
 ## Minimum Viable Product
 
