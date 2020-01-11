@@ -17,4 +17,24 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  //const id = req.params.id;
+  if (!req.body.resource_name) {
+    res.status(400).json({ message: 'missing resource name' });
+  }
+  const newResource = {
+    resource_name: req.body.resource_name,
+    resource_description: req.body.resource_description || null,
+    projects_id: req.params.id,
+  };
+  try {
+    console.log('id', id);
+    const resource = await dbResources.addResource(newResource);
+    res.status(201).json(resource);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ errorMessage: 'server error' });
+  }
+});
+
 module.exports = router;
