@@ -19,7 +19,21 @@ exports.up = async function(knex) {
     table
       .integer('projects_id')
       .unsigned()
-      .notNullable();
+      .notNullable()
+      .references('id')
+      .inTable('projects');
+  });
+
+  await knex.schema.createTable('tasks', table => {
+    table.increments('id');
+    table.string('task_description', 250).notNullable();
+    table.text('task_note');
+    table
+      .integer('projectes_id')
+      .unsigned()
+      .notNullable()
+      .references('id')
+      .inTable('projects');
   });
 
   await knex.schema.createTable('tasks', table => {});
