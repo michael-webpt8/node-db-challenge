@@ -12,7 +12,15 @@ exports.up = async function(knex) {
       .defaultTo(false);
   });
 
-  await knex.schema.createTable('resources', table => {});
+  await knex.schema.createTable('resources', table => {
+    table.increments('id');
+    table.string('resource_name').notNullable();
+    table.text('resource_description');
+    table
+      .integer('projects_id')
+      .unsigned()
+      .notNullable();
+  });
 
   await knex.schema.createTable('tasks', table => {});
 };
