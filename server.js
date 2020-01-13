@@ -6,10 +6,11 @@ const resourceRouter = require('./API/resources/resources-router');
 const server = express();
 server.use(helmet());
 server.use(cors());
+server.use(express.json());
 
 server.use('/api/projects/:id/resources', resourceRouter);
 
-server.use('/', (req, res) => {
+server.get('/', (req, res) => {
   res.send('api is up and running');
 });
 
