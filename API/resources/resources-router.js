@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
   };
   try {
     console.log('id', id);
-    const resource = await dbResources.addResource(newResource);
+    const resource = await dbResources.addResource(newResource, req.params.id);
     res.status(201).json(resource);
   } catch (err) {
     console.log(err);
