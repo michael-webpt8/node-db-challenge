@@ -8,16 +8,24 @@ module.exports = {
 
 function getResources(project_id) {
   return db('resources as r')
-    .join('projects as p', 'r.projects_id', 'p.id')
+    .join('project_resources as pr', 'pr.resources_id', 'r.id')
+    .join('projects as p', 'pr.projects_id', 'p.id')
     .where('p.id', project_id)
     .select();
 }
 
 function getResourceById(id) {
   return db('resources as r')
-    .where({ id })
-    .join('projects as p', 'r.projects_id', 'p.id')
-    .select()
+    .where('r.id', id)
+    .join('project_resources as pr', 'pr.resources_id', 'r.id')
+    .join('projects as p', 'pr.projects_id', 'p.id')
+    .select(
+      'p.project_name',
+      'p.project_description',
+      'p.project_completed',
+      'r.resource_name',
+      'r.resource_description'
+    )
     .first();
 }
 
