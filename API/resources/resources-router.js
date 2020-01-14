@@ -25,7 +25,6 @@ router.post('/', async (req, res) => {
   const newResource = {
     resource_name: req.body.resource_name,
     resource_description: req.body.resource_description || null,
-    projects_id: req.params.id,
   };
   try {
     const resource = await dbResources.addResource(newResource);

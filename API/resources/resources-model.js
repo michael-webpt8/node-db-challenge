@@ -2,7 +2,7 @@ const db = require('../../data/db-config');
 
 module.exports = {
   getResources,
-  getResourceById,
+  getResourcesById,
   addResource,
 };
 
@@ -14,18 +14,11 @@ function getResources(project_id) {
     .select();
 }
 
-function getResourceById(id) {
+function getResourcesById(id) {
   return db('resources as r')
     .where('r.id', id)
-    .join('project_resources as pr', 'pr.resources_id', 'r.id')
-    .join('projects as p', 'pr.projects_id', 'p.id')
-    .select(
-      'p.project_name',
-      'p.project_description',
-      'p.project_completed',
-      'r.resource_name',
-      'r.resource_description'
-    )
+
+    .select('r.resource_name', 'r.resource_description')
     .first();
 }
 
