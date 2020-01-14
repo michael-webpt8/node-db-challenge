@@ -12,8 +12,8 @@ async function addTasks(task) {
     .first();
 }
 
-function getTasks() {
-  return db('tasks as t')
+async function getTasks() {
+  const data = await db('tasks as t')
     .join('projects as p', 't.projects_id', 'p.id')
     .select(
       'p.project_name',
@@ -22,4 +22,10 @@ function getTasks() {
       't.task_note',
       't.task_completed'
     );
+  return data.map(task => {
+    return {
+      ...task,
+      task_completed: task.task_completed === 1 ? true : false,
+    };
+  });
 }

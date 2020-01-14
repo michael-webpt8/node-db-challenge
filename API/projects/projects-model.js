@@ -5,8 +5,14 @@ module.exports = {
   addProject,
 };
 
-function getProjects() {
-  return db('projects').select();
+async function getProjects() {
+  const projects = db('projects').select();
+  return projects.map(project => {
+    return {
+      ...project,
+      project_completed: project.project_completed === 1 ? true : false,
+    };
+  });
 }
 
 async function addProject(data) {
