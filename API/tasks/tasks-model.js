@@ -1,0 +1,25 @@
+const db = require('../../data/db-config');
+
+module.exports = {
+  addTasks,
+  getTasks,
+};
+
+async function addTasks(task) {
+  const [id] = await db('tasks').insert(task);
+  return db('tasks')
+    .where({ id })
+    .first();
+}
+
+function getTasks() {
+  return db('tasks as t')
+    .join('projects as p', 't.projects_id', 'p.id')
+    .select(
+      'p.project_name',
+      'p.project_description',
+      't.task_description',
+      't.task_note',
+      't.task_completed'
+    );
+}
